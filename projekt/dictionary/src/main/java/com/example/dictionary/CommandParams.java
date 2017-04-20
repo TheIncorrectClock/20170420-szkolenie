@@ -1,5 +1,6 @@
 package com.example.dictionary;
 
+import com.example.dictionary.validation.HelpValidationGroup;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.Valid;
@@ -27,7 +28,9 @@ public class CommandParams {
     }
 
     public class Args {
-        @Size(min = 1)
+
+        @NotEmpty
+        @Size(min = 2, groups = HelpValidationGroup.class)
         final List<String> args;
 
         private Args() {

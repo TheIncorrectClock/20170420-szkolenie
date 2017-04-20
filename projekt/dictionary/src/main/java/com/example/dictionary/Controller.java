@@ -6,11 +6,13 @@ import java.util.Set;
 
 import com.example.dictionary.translation.DictionaryWord;
 import com.example.dictionary.translation.TranslationService;
+import com.example.dictionary.validation.HelpValidationGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import javax.validation.groups.Default;
 
 @Component
 public class Controller {
@@ -31,10 +33,18 @@ public class Controller {
 			System.out.print("dictionary > ");
 			CommandParams params = CommandParams.of(s.nextLine());
 
-			if ("search".equals(params.command)) {
+			if ("help".equals(params.command)) {
+                Set<ConstraintViolation<CommandParams>> errors = validator.validate(params, Default.class, HelpValidationGroup.class);
+                if (!errors.isEmpty()) {
+                    System.out.println("Błąd walidacji - wymagany dwa argumenty");
+                    continue;
+                }
+            }
+
+            if ("search".equals(params.command)) {
                 Set<ConstraintViolation<CommandParams>> errors = validator.validate(params);
                 if (!errors.isEmpty()) {
-                    System.out.println("Błędy walidacji");
+                    System.out.println("Błąd walidacji");
                     continue;
                 }
                 List<DictionaryWord> words = service.getTranslationsForWord(params.args.first());
