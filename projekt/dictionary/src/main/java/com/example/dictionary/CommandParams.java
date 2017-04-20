@@ -1,7 +1,7 @@
 package com.example.dictionary;
 
 import com.example.dictionary.validation.HelpValidationGroup;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.apache.bval.constraints.NotEmpty;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Size;

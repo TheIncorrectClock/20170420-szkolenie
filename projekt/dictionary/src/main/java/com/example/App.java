@@ -35,8 +35,9 @@ public class App {
 
 		@Bean
 		Validator validator() {
-			ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-			return factory.getValidator();
+			return new LocalValidatorFactoryBean();
+//			ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+//			return factory.getValidator();
 		}
 
 	}
