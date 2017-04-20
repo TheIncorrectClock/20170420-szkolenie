@@ -1,6 +1,5 @@
 package com.example.dictionary.translation;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
