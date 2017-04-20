@@ -1,16 +1,13 @@
 package com.example.spring.hello;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.*;
 
 import java.lang.annotation.*;
 
 @Configuration
-@ComponentScan(excludeFilters = @ComponentScan.Filter(HelloConfig.English.class))
+@ComponentScan(excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = Translation.class))
+@Import({PolishConfig.class, EnglishConfig.class})
 public class HelloConfig {
 
     @Target(ElementType.TYPE)
@@ -31,3 +28,18 @@ public class HelloConfig {
 
 }
 
+
+@Profile("polish")
+class PolishConfig {
+
+    @Bean
+    Translation polish() { return new PolishTranslation();}
+
+}
+
+@Profile("english")
+class EnglishConfig {
+
+    @Bean
+    Translation polish() { return new EnglishTranslation();}
+}

@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.support.GenericApplicationContext;
 
 import java.io.IOException;
 
@@ -18,7 +19,10 @@ public class App {
 
     public static void main(String[] args) throws IOException {
 
-        ApplicationContext factory = new AnnotationConfigApplicationContext(AppConfiguration.class);
+        AnnotationConfigApplicationContext factory = new AnnotationConfigApplicationContext();
+        factory.register(AppConfiguration.class);
+        factory.getEnvironment().addActiveProfile("english");
+        factory.refresh();
 
         Hello hello = factory.getBean(Hello.class);
         log.info("hello({}) = {}", hello.hashCode(), hello.sayHello("Jakub"));
