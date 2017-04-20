@@ -2,6 +2,7 @@ package com.example.spring;
 
 import com.example.spring.hello.Hello;
 import com.example.spring.hello.HelloConfig;
+import com.example.spring.hello.events.EventsBasedHello;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import java.io.IOException;
 
@@ -24,14 +26,15 @@ public class App {
         factory.getEnvironment().addActiveProfile("english");
         factory.refresh();
 
-        Hello hello = factory.getBean(Hello.class);
-        log.info("hello({}) = {}", hello.hashCode(), hello.sayHello("Jakub"));
+        EventsBasedHello bean = factory.getBean(EventsBasedHello.class);
+        bean.hello("Jakub");
     }
 
 
 }
 
 @Configuration
+@EnableAsync
 @Import({HelloConfig.class})
 class AppConfiguration {
 }
