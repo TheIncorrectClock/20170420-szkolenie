@@ -1,6 +1,5 @@
 package com.example.dictionary.translation;
 
-import jdk.internal.util.xml.impl.Pair;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
