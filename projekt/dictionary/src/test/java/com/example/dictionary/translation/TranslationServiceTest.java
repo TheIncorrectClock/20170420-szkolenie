@@ -1,6 +1,8 @@
 package com.example.dictionary.translation;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
 
 import java.util.List;
 
@@ -10,7 +12,13 @@ import static org.junit.Assert.assertThat;
 
 public class TranslationServiceTest {
 
-    TranslationService service = new TranslationService();
+    TranslationService service;
+
+    @Before
+    public void setup() {
+        String dir = TranslationService.class.getResource("/words/").toExternalForm();
+        service = new TranslationService(dir + "{}.html");
+    }
 
     @Test
     public void should_return_translations_for_word_book() {
