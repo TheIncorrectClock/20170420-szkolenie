@@ -17,7 +17,7 @@ public class EventsBasedHello {
     ApplicationEventPublisher publisher;
 
     public void hello(String name) {
-        publisher.publishEvent(name);
+        publisher.publishEvent(new Name(name));
     }
 
     @EventListener

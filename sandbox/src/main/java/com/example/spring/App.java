@@ -7,11 +7,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.io.IOException;
 
 public class App {
@@ -27,7 +32,7 @@ public class App {
         factory.refresh();
 
         EventsBasedHello bean = factory.getBean(EventsBasedHello.class);
-        bean.hello("Jakub");
+        bean.hello("Xo");
     }
 
 
@@ -37,5 +42,13 @@ public class App {
 @EnableAsync
 @Import({HelloConfig.class})
 class AppConfiguration {
+
+    @Bean
+    public Validator validator() {
+//        return new LocalValidatorFactoryBean();
+        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        return validatorFactory.getValidator();
+    }
+
 }
 

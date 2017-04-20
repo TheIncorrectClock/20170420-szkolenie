@@ -9,6 +9,10 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.util.Set;
+
 @Component
 public class EventProcessor  {
 
@@ -16,6 +20,9 @@ public class EventProcessor  {
 
     @Autowired
     ApplicationEventPublisher publisher;
+
+    @Autowired
+    Validator validator;
 
     private final Translation translation;
 
@@ -25,11 +32,17 @@ public class EventProcessor  {
 
     @Async
     @EventListener
-    public void processor(String name) throws InterruptedException {
+    public void processor(Name name) throws InterruptedException {
 
-        Thread.sleep(2000);
+        Set<ConstraintViolation<Name>> violations = validator.validate(name);
+        System.out.println("violations = " + violations);
 
-        String hello = translation.hello(name);
+        if (!violations.isEmpty()) {
+            publisher.publishEvent("Błąd walidacji " + name.word);
+            return;
+        }
+
+        String hello = translation.hello(name.word);
         log.info("hello = {}", hello);
         publisher.publishEvent(new Greeting(hello));
     }
