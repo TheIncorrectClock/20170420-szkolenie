@@ -5,7 +5,9 @@ import com.example.dictionary.translation.TranslationService;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.validation.beanvalidation.BeanValidationPostProcessor;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -33,6 +35,11 @@ public class App {
 	@ComponentScan({"com.example.dictionary", "com.example.helloworld"})
 	@PropertySource("classpath:dict.properties")
 	public static class AppConfiguration {
+
+		@Bean
+		MethodValidationPostProcessor methodValidation() {
+			return new MethodValidationPostProcessor();
+		}
 
 		@Bean
 		Validator validator() {

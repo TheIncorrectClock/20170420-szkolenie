@@ -1,9 +1,12 @@
 package com.example.dictionary.translation;
 
+import com.example.dictionary.CommandParams;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -19,6 +22,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @Service
+@Validated
 public class TranslationService {
     private static Logger log = Logger.getLogger(TranslationService.class);
     private static Pattern pat = Pattern
@@ -30,7 +34,11 @@ public class TranslationService {
         this.urlStringTemplate = urlStringTemplate;
     }
 
-    public List<DictionaryWord> getTranslationsForWord(String wordToTranslate) {
+    public List<DictionaryWord> getTranslationsForWord(@Valid CommandParams params) {
+        return getTranslationsForWord(params.args.first());
+    }
+
+   public List<DictionaryWord> getTranslationsForWord(String wordToTranslate) {
         List<String> words = getWords(wordToTranslate);
 
         return streamOfPairs(words)

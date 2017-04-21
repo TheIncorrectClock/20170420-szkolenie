@@ -23,6 +23,14 @@ public class CommandParams {
         this.args = new Args(Arrays.copyOfRange(split, 1, split.length));
     }
 
+    @Override
+    public String toString() {
+        return "CommandParams{" +
+                "command='" + command + '\'' +
+                ", args=" + args +
+                '}';
+    }
+
     public static CommandParams of(String commandLine) {
         return new CommandParams(commandLine);
     }
@@ -43,6 +51,11 @@ public class CommandParams {
 
         public String first() {
             return args.iterator().next();
+        }
+
+        @Override
+        public String toString() {
+            return "Args" + args;
         }
     }
 }

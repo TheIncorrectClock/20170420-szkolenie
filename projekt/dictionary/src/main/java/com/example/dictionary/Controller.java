@@ -47,7 +47,7 @@ public class Controller {
                     System.out.println("Błąd walidacji");
                     continue;
                 }
-                List<DictionaryWord> words = service.getTranslationsForWord(params.args.first());
+                List<DictionaryWord> words = service.getTranslationsForWord(params);
                 words.forEach(System.out::println);
             }
 

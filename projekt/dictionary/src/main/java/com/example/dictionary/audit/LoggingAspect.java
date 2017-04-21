@@ -1,5 +1,6 @@
 package com.example.dictionary.audit;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
@@ -15,7 +16,7 @@ public class LoggingAspect {
 
     @Before(value = "execution(* com.example..TranslationService.getTranslationsForWord(*))" +
             "&& args(word)", argNames = "word")
-    public void logTranslationInvocation(String word) {
+    public void logTranslationInvocation(Object word) {
         log.info("Translating {}", word);
     }
 
