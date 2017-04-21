@@ -6,10 +6,7 @@ import com.example.spring.hello.events.EventsBasedHello;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -37,7 +34,7 @@ public class App {
         Foo bean1 = factory.getBean(Foo.class);
         System.out.println("bean1 = " + bean1.bar());
 
-        EventsBasedHello bean = parent.getBean(EventsBasedHello.class);
+        EventsBasedHello bean = factory.getBean(EventsBasedHello.class);
         bean.hello("Tom");
     }
 
@@ -46,6 +43,7 @@ public class App {
 
 @Configuration
 @EnableAsync
+@EnableAspectJAutoProxy
 @Import({HelloConfig.class})
 class AppConfiguration {
 
