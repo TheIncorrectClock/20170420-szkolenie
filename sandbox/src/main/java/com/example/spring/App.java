@@ -26,13 +26,19 @@ public class App {
 
     public static void main(String[] args) throws IOException {
 
+        AnnotationConfigApplicationContext parent = new AnnotationConfigApplicationContext(Foo.class);
+
         AnnotationConfigApplicationContext factory = new AnnotationConfigApplicationContext();
+        factory.setParent(parent);
         factory.register(AppConfiguration.class);
         factory.getEnvironment().addActiveProfile("english");
         factory.refresh();
 
-        EventsBasedHello bean = factory.getBean(EventsBasedHello.class);
-        bean.hello("Xo");
+        Foo bean1 = factory.getBean(Foo.class);
+        System.out.println("bean1 = " + bean1.bar());
+
+        EventsBasedHello bean = parent.getBean(EventsBasedHello.class);
+        bean.hello("Tom");
     }
 
 
