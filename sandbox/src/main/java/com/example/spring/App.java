@@ -38,21 +38,21 @@ public class App {
         bean.hello("Tom");
     }
 
+    @Configuration
+    @EnableAsync
+    @EnableAspectJAutoProxy
+    @Import({HelloConfig.class})
+    public static class AppConfiguration {
 
-}
-
-@Configuration
-@EnableAsync
-@EnableAspectJAutoProxy
-@Import({HelloConfig.class})
-class AppConfiguration {
-
-    @Bean
-    public Validator validator() {
+        @Bean
+        public Validator validator() {
 //        return new LocalValidatorFactoryBean();
-        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
-        return validatorFactory.getValidator();
+            ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+            return validatorFactory.getValidator();
+        }
+
     }
+
 
 }
 

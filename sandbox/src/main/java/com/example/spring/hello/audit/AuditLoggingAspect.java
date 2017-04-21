@@ -18,9 +18,6 @@ import java.util.Arrays;
 @Component
 public class AuditLoggingAspect {
 
-    @Autowired
-    Translation translation;
-
     private Logger log = LoggerFactory.getLogger(AuditLoggingAspect.class);
 
     @Around("execution(* com.example.spring.hello.Translation.*(*))")
