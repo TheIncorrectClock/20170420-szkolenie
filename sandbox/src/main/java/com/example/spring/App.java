@@ -28,7 +28,7 @@ public class App {
         AnnotationConfigApplicationContext factory = new AnnotationConfigApplicationContext();
         factory.setParent(parent);
         factory.register(AppConfiguration.class);
-        factory.getEnvironment().addActiveProfile("english");
+        factory.getEnvironment().addActiveProfile("polish");
         factory.refresh();
 
         Foo bean1 = factory.getBean(Foo.class);
