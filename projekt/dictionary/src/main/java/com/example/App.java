@@ -29,6 +29,7 @@ public class App {
 	}
 
 	@Configuration
+	@EnableAspectJAutoProxy
 	@ComponentScan({"com.example.dictionary", "com.example.helloworld"})
 	@PropertySource("classpath:dict.properties")
 	public static class AppConfiguration {
